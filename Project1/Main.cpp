@@ -32,41 +32,42 @@ void printList(const list<int>& lst) {
 	cout << endl;
 }
 void main() {
-	/*Queue myQueue;
+	Queue myQueue;
 	myQueue.insert(Employee("John", "Doe", "Manager", 5000));
 	myQueue.insert(Employee("Jane", "Smith", "Developer", 4000));
 	
 
-	myQueue.printAllEmployees();
-	myQueue.remove();
+	//myQueue.printAllEmployees();
+	//myQueue.remove();
 	myQueue.printAllEmployees();
 	myQueue.insert(Employee("Alice", "Johnson", "Designer", 4500));
+	myQueue.findEmployee("Smith");
 	myQueue.printAllEmployees();
-	myQueue.paySalaries();*/
-	int size;
-	cout << "Set array/list size: " << endl;
-	cin >> size;
+	myQueue.paySalaries();
+	//int size;
+	//cout << "Set array/list size: " << endl;
+	//cin >> size;
 
-	int* arr = new int[size];
-	list<int> lst;
+	//int* arr = new int[size];
+	//list<int> lst;
 
-	//generateRandomArray(arr, size, 1, 50);
-	generateRandomList(lst, size, 1, 50);
+	////generateRandomArray(arr, size, 1, 50);
+	//generateRandomList(lst, size, 1, 50);
 
-	cout << "Initial array/list: " << endl;
-	//printArray(arr, size);
-	printList(lst);
+	//cout << "Initial array/list: " << endl;
+	////printArray(arr, size);
+	//printList(lst);
 
-	clock_t start = clock();
-	//shakerSort(lst);
-	//mergeSort(arr, 0, size - 1);
-	mergeSort(lst);
-	clock_t finish = clock();
+	//clock_t start = clock();
+	////shakerSort(lst);
+	////mergeSort(arr, 0, size - 1);
+	//mergeSort(lst);
+	//clock_t finish = clock();
 
-	double elapsedTime = double(finish - start) / CLOCKS_PER_SEC;
+	//double elapsedTime = double(finish - start) / CLOCKS_PER_SEC;
 
-	cout << "\nSorted array/list: " << endl;
-	//printArray(arr, size);
-	printList(lst);
-	cout << "\nTime taken for sort: " << elapsedTime << endl;
+	//cout << "\nSorted array/list: " << endl;
+	////printArray(arr, size);
+	//printList(lst);
+	//cout << "\nTime taken for sort: " << elapsedTime << endl;
 }

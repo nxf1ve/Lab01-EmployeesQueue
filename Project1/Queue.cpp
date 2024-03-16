@@ -46,3 +46,18 @@ void Queue::printAllEmployees() const {
     }
 }
 
+void Queue::findEmployee(const string& employeeLastName) {
+    bool isEmployeeInQueue = false;
+    for (int i = 0; i < size; i++) {
+        if (employees[i].getLastName() == employeeLastName) {
+            cout << "This employee is in the queue, his position: " << i + 1 << endl;
+            isEmployeeInQueue = true;
+            break;
+        }
+        
+    }
+    if (isEmployeeInQueue == false) {
+        cout << "This employee is not in the queue" << endl;   
+    }
+}
+

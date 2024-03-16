@@ -15,6 +15,7 @@ public:
 	void remove();
 	void paySalaries();
 	void printAllEmployees() const;
+	void findEmployee(const string& employeeLastName);
 };
 #endif
 
