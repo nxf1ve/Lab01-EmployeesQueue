@@ -33,86 +33,154 @@ namespace SortingMethods {
 			++start;
 		}
 	}
-
 	void shakerSort(list<int>& lst) {
 		bool swapped = true;
 		auto start = lst.begin();
 		auto end = lst.end();
 		while (swapped) {
 			swapped = false;
-			for (auto it = start; std::next(it) != end; ++it) {
-				if (*it > *std::next(it)) {
-					swap(*it, *std::next(it));
+			for (auto it = start; next(it) != end; ++it) {
+				if (*it > *next(it)) {
+					swap(*it, *next(it));
 					swapped = true;
 				}
 			}
 			if (!swapped) break;
 			--end;
 			swapped = false;
-			for (auto it = std::prev(end); it != start; --it) {
-				if (*it > *std::next(it)) {
-					swap(*it, *std::next(it));
+			for (auto it = prev(end); it != start; --it) {
+				if (*it > *next(it)) {
+					swap(*it, *next(it));
 					swapped = true;
 				}
 			}
 			++start;
 		}
 	}
-
-	void merge(int array[], int start, int middle, int end) {		
-		int left = start;
-		int right = middle + 1;
-		int length = end - start + 1;
-		int* tempArray = new int[length];
-		for (int i = 0; i < length; i++) {
-			if (right > end || (left <= middle && array[left] < array[right])) {
-				tempArray[i] = array[left];
-				left++;
+	void bubbleSort(int array[], int n) {
+		for (int i = 0; i < n - 1; i++) {
+			bool swapped = false;
+			for (int j = 0; j < n - 1 - i; j++) {
+				if (array[j] > array[j + 1]) {
+					swapped = true;
+					swap(array[j], array[j + 1]);
+				}
 			}
-			else {
-				tempArray[i] = array[right];
-				right++;
-			}
+			if (!swapped)
+				break;
 		}
-		for (int i = 0; i < length; i++)
-			array[i + start] = tempArray[i];
 	}
-	void merge(list<int>& lst, std::list<int>& left, std::list<int>& right) {
-		auto leftIt = left.begin();
-		auto rightIt = right.begin();
-		while (leftIt != left.end() && rightIt != right.end()) {
-			if (*leftIt < *rightIt) {
-				lst.push_back(*leftIt);
-				++leftIt;
+	void bubbleSort(list<int>& lst) {
+		for (auto iter1 = lst.begin(); iter1 != prev(lst.end()); ++iter1) {
+			bool swapped = false;
+			for (auto iter2 = lst.begin(); iter2 != prev(lst.end()); ++iter2) {
+				auto nextIter = next(iter2);
+				if (*iter2 > *nextIter) {
+					swap(*iter2, *nextIter);
+					swapped = true;
+				}
+			}
+			if (!swapped)
+				break;
+		}
+	}
+
+	void merge(int array1[], int array2[], int targetArray[], int array1Length, int array2Length) {
+		int array1MinIndex = 0;
+		int array2MinIndex = 0;
+		int targetArrayMinIndex = 0;
+
+		while (array1MinIndex < array1Length && array2MinIndex < array2Length) {
+			if (array1[array1MinIndex] <= array2[array2MinIndex]) {
+				targetArray[targetArrayMinIndex] = array1[array1MinIndex];
+				array1MinIndex++;
 			}
 			else {
-				lst.push_back(*rightIt);
-				++rightIt;
+				targetArray[targetArrayMinIndex] = array2[array2MinIndex];
+				array2MinIndex++;
+			}
+			targetArrayMinIndex++;
+		}
+
+		while (array1MinIndex < array1Length) {
+			targetArray[targetArrayMinIndex] = array1[array1MinIndex];
+			array1MinIndex++;
+			targetArrayMinIndex++;
+		}
+
+		while (array2MinIndex < array2Length) {
+			targetArray[targetArrayMinIndex] = array2[array2MinIndex];
+			array2MinIndex++;
+			targetArrayMinIndex++;
+		}
+	}
+
+	void mergeSort(int array[], int size) {
+		if (size < 2) {
+			return;
+		}
+		int mid = size / 2;
+		int* left = new int[mid];
+		int* right = new int[size - mid];
+
+		for (int i = 0; i < mid; i++) {
+			left[i] = array[i];
+		}
+		for (int i = mid; i < size; i++) {
+			right[i-mid] = array[i];
+		}
+		mergeSort(left, mid);
+		mergeSort(right, size - mid);
+		merge(left, right, array, mid, size - mid);
+
+	}
+	void merge(list<int>& lst1, std::list<int>& lst2, std::list<int>& targetLst) {
+		auto iter1 = lst1.begin();
+		auto iter2 = lst2.begin();
+
+		while (iter1 != lst1.end() && iter2 != lst2.end()) {
+			if (*iter1 <= *iter2) {
+				targetLst.push_back(*iter1);
+				iter1++;
+			}
+			else {
+				targetLst.push_back(*iter2);
+				iter2++;
 			}
 		}
-		lst.insert(lst.end(), leftIt, left.end());
-		lst.insert(lst.end(), rightIt, right.end());
+		while (iter1 != lst1.end()) {
+			targetLst.push_back(*iter1);
+			iter1++;
+		}
+		while (iter2 != lst2.end()) {
+			targetLst.push_back(*iter2);
+			iter2++;
+		}
+		
 	}
 
 	void mergeSort(list<int>& lst) {
-		if (lst.size() <= 1) return;
-		std::list<int> left, right;
-		int middle = lst.size() / 2;
-		auto it = lst.begin();
-		std::advance(it, middle);
-		left.splice(left.begin(), lst, lst.begin(), it);
-		right.splice(right.begin(), lst, it, lst.end());
+		if (lst.size() < 2) {
+			return;
+		}
+
+		int mid = lst.size() / 2;
+		list<int> left, right;
+
+		auto iter = lst.begin();
+		for (int i = 0; i < mid; i++) {
+			left.push_back(*iter);
+			iter++;
+		}
+		while (iter != lst.end()) {
+			right.push_back(*iter);
+			iter++;
+		}
 		mergeSort(left);
 		mergeSort(right);
-		merge(lst, left, right);
+		lst.clear();
+		merge(left, right, lst);
+		
 	}
 
-	void mergeSort(int array[], int start, int end) {
-		if (start == end) return;
-		int middle = (start + end) / 2;
-		mergeSort(array, start, middle);
-		mergeSort(array, middle + 1, end);
-		merge(array, start, middle, end);
-
-	}
 }
