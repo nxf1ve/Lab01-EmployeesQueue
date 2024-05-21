@@ -121,13 +121,6 @@ public:
     }
 };
 
-//vector<int> generateRandomVector(int min, int max, int count) {
-//    vector<int> vec;
-//	for (int i = 0; i < count; i++) {
-//		vec.push_back(min + rand() % max);
-//	}
-//    return vec;
-//}
 void printVector(vector<int> vec) {
     for (int num : vec) {
         cout << num << " ";
@@ -145,7 +138,7 @@ void printArray(int arr[], int size) {
 void measureQueuePush(Queue<int>& q, int count) {
     auto start = high_resolution_clock::now();
     for (int i = 0; i < count; ++i) {
-        q.push(new int(i));
+        q.push(new int(rand()));
     }
     auto finish = high_resolution_clock::now();
 
@@ -155,7 +148,7 @@ void measureQueuePush(Queue<int>& q, int count) {
 
 void measureQueuePop(Queue<int>& q, int count) {
     for (int i = 0; i < count; ++i) {
-        q.push(new int(i));
+        q.push(new int(rand()));
     }
 
     auto start = high_resolution_clock::now();
@@ -184,28 +177,28 @@ void main() {
     teammateQueue.printAdt();*/
 
     vector<int> vec;
-    measureVectorPush(vec, 320000);
-    measureVectorPop(vec, 320000);   
+    measureVectorPush(vec, 10000);
+    measureVectorPop(vec, 10000);   
     
    /* stack<int> stk;
-    measureStackPush(stk, 320000);
-    measureStackPop(stk, 320000);*/
+    measureStackPush(stk, 10000);
+    measureStackPop(stk, 10000);*/
 
     /*queue<int> q;
     measureQueuePush(q, 320000);
     measureQueuePop(q, 320000); */
      
     /*Queue<int> q;
-    measureQueuePush(q, 1000);
-    measureQueuePop(q, 1000);*/
+    measureQueuePush(q, 80000);
+    measureQueuePop(q, 80000);*/
 
     /*map<int, int> m;
     measureMapInsert(m, 320000);
     measureMapErase(m, 320000);*/
 
     /*unordered_map<int, int> um;
-    measureUnorderedMapInsert(um, 320000);
-    measureUnorderedMapErase(um, 320000);*/
+    measureUnorderedMapInsert(um, 10000);
+    measureUnorderedMapErase(um, 10000);*/
  
 
 }
