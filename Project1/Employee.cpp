@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-void Employee::printEmployeeInformation() const {
+void Employee::printInformation() const {
     cout << "Name: " << firstName << " " << lastName << endl;
     cout << "Position: " << position << endl;
     cout << "Salary: " << salary << endl;
@@ -16,5 +16,9 @@ string Employee::getFirstName() const {
 }
 string Employee::getLastName() const {
     return lastName;
+}
+ostream& operator << (std::ostream& os, const Employee& empl)
+{
+    return os << empl.getLastName() << " " << empl.getSalary();
 }
 

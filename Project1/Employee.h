@@ -13,10 +13,12 @@ public :
 	Employee() : firstName(""), lastName(""), position(""), salary(0.0) {}
 	Employee(const string& fName, const string& lName, const string& pos, double sal)
 		: firstName(fName), lastName(lName), position(pos), salary(sal) {}
-	void printEmployeeInformation() const;
+	void printInformation() const;
 	double getSalary() const;
 	string getFirstName() const;
 	string getLastName() const;
 };
+
+ostream& operator << (std::ostream& os, const Employee& med);
 
 #endif

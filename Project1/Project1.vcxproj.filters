@@ -21,10 +21,10 @@
     <ClCompile Include="Employee.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Queue.cpp">
+    <ClCompile Include="SortingMethods.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SortingMethods.cpp">
+    <ClCompile Include="Medicament.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +32,10 @@
     <ClInclude Include="Employee.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Queue.h">
+    <ClInclude Include="SortingMethods.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="SortingMethods.h">
+    <ClInclude Include="Medicament.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
