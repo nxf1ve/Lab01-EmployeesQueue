@@ -4,16 +4,6 @@
 
 using namespace std;
 
-//Medicament::Medicament(long long price, string name) {
-//	this->price = price;
-//	this->nameMedicament = name;
-//}
-
-void Medicament::printMed() const 
-{
-	cout << "(Название: " << nameMedicament << ", Цена: " << price << ")";
-}
-
 string Medicament::getNameMedicament() const{
 	return nameMedicament;
 }
@@ -21,8 +11,6 @@ string Medicament::getNameMedicament() const{
 long long Medicament::getPrice() const {
 	return price;
 }
-
-
 
 ostream& operator << (std::ostream& os, const Medicament& med)
 {

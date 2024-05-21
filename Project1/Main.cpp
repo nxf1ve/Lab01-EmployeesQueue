@@ -1,15 +1,21 @@
 #include "Employee.h"
 #include "Medicament.h"
-#include "SortingMethods.h"
 #include <random>
 #include <iostream>
 #include <ctime>
 #include <list>
 #include <vector>
-#define MAX_EMPLOYEES 100
+#include <iomanip>
+#include <chrono>
+#include <stack>
+#include <queue>
+#include <map>
+#include <unordered_map>
+#include "Task1.h"
+#define MAX_EMPLOYEES 100000
 
 using namespace std;
-using namespace SortingMethods;
+using namespace std::chrono;
 
 template <class T>
 class IntetfaceToAdt {
@@ -72,12 +78,11 @@ public:
         return elements[frontIndex];
     }
 
-    void printAdt() override {
+    void printAdt() override {     
         cout << "Elements in queue: " << endl;
         int current = frontIndex;
         for (int i = 0; i < size; i++) {
-            elements[current]->printInformation();
-            cout << endl;
+            cout << *elements[current] << endl;
             current = (current + 1) % MAX_EMPLOYEES;
         }
     }
@@ -116,50 +121,18 @@ public:
     }
 };
 
-    //void paySalaries() {
-    //    cout << "Paying salaries..." << endl;
-    //    int current = front;
-    //    for (int i = 0; i < size; i++) {
-    //        cout << "Paying salary to: " << employees[current]->getFirstName()
-    //            << " " << employees[current]->getLastName() << endl;
-    //        current = (current + 1) % MAX_EMPLOYEES;
-    //    }
-    //}
-
-    //void findEmployee(const string& employeeLastName) {
-    //    bool isEmployeeInQueue = false;
-    //    int current = front;
-    //    for (int i = 0; i < size; i++) {
-    //        if (employees[current]->getLastName() == employeeLastName) {
-    //            cout << "This employee is in the queue, his position: " << (current - front + MAX_EMPLOYEES) % MAX_EMPLOYEES + 1 << endl;
-    //            isEmployeeInQueue = true;
-    //            break;
-    //        }
-    //        current = (current + 1) % MAX_EMPLOYEES;
-    //    }
-    //    if (!isEmployeeInQueue) {
-    //        cout << "This employee is not in the queue" << endl;
-    //    }
-    //}
-
-vector<int> generateRandomVector(int min, int max, int count) {
-    vector<int> vec;
-	for (int i = 0; i < count; i++) {
-		vec.push_back(min + rand() % max);
-	}
-    return vec;
-}
+//vector<int> generateRandomVector(int min, int max, int count) {
+//    vector<int> vec;
+//	for (int i = 0; i < count; i++) {
+//		vec.push_back(min + rand() % max);
+//	}
+//    return vec;
+//}
 void printVector(vector<int> vec) {
     for (int num : vec) {
         cout << num << " ";
     }
     cout << endl;   
-}
-
-void generateRandomList(list<int>& lst, int size, int min, int max) {
-	for (int i = 0; i < size; i++) {
-		lst.push_back(min + rand() % max);
-	}
 }
 
 void printArray(int arr[], int size) {
@@ -168,11 +141,33 @@ void printArray(int arr[], int size) {
 	}
 	cout << endl;
 }
-void printList(const list<int>& lst) {
-	for (int num : lst) {
-		cout << num << " ";
-	}
-	cout << endl;
+
+void measureQueuePush(Queue<int>& q, int count) {
+    auto start = high_resolution_clock::now();
+    for (int i = 0; i < count; ++i) {
+        q.push(new int(i));
+    }
+    auto finish = high_resolution_clock::now();
+
+    duration<double> elapsedTime = finish - start;
+    cout << "Time taken for push(" << count << " elements): " << fixed << setprecision(9) << elapsedTime.count() << " seconds" << endl;
+}
+
+void measureQueuePop(Queue<int>& q, int count) {
+    for (int i = 0; i < count; ++i) {
+        q.push(new int(i));
+    }
+
+    auto start = high_resolution_clock::now();
+    for (int i = 0; i < count; ++i) {
+        if (!q.isEmpty()) {
+            q.pop();
+        }
+    }
+    auto finish = high_resolution_clock::now();
+
+    duration<double> elapsedTime = finish - start;
+    cout << "Time taken for pop(" << count << " elements): " << fixed << setprecision(9) << elapsedTime.count() << " seconds" << endl;
 }
 void main() {
    /* Queue<Employee> myQueue;
@@ -182,16 +177,35 @@ void main() {
     myQueue.pop();
     myQueue.printAdt();
     myQueue.push(new Employee("Alice", "Johnson", "Designer", 4500));
-    myQueue.printAdt();*/
+    myQueue.printAdt();
 
-  /*  Queue<Medicament> teammateQueue;
+    Queue<Medicament> teammateQueue;
     teammateQueue.push(new Medicament(100, "ABD"));
     teammateQueue.printAdt();*/
-   	
-    vector<int> vec = generateRandomVector(5, 25, 25);
-    printVector(vec);
+
+    vector<int> vec;
+    measureVectorPush(vec, 320000);
+    measureVectorPop(vec, 320000);   
     
-    
-    
+   /* stack<int> stk;
+    measureStackPush(stk, 320000);
+    measureStackPop(stk, 320000);*/
+
+    /*queue<int> q;
+    measureQueuePush(q, 320000);
+    measureQueuePop(q, 320000); */
+     
+    /*Queue<int> q;
+    measureQueuePush(q, 1000);
+    measureQueuePop(q, 1000);*/
+
+    /*map<int, int> m;
+    measureMapInsert(m, 320000);
+    measureMapErase(m, 320000);*/
+
+    /*unordered_map<int, int> um;
+    measureUnorderedMapInsert(um, 320000);
+    measureUnorderedMapErase(um, 320000);*/
+ 
 
 }

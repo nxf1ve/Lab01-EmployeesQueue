@@ -11,10 +11,8 @@ private:
 public:
     Medicament() : price(0), nameMedicament("") {}
     Medicament(long long pri, const std::string& name) : nameMedicament(name), price(pri) {}
-    void printMed() const;
     string getNameMedicament() const;
     long long getPrice() const;
-
 
 };
 
