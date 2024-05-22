@@ -12,10 +12,19 @@
 #include <map>
 #include <unordered_map>
 #include "Task1.h"
+#include <fstream>
 #define MAX_EMPLOYEES 100000
 
 using namespace std;
 using namespace std::chrono;
+
+Employee* readNewObj() {
+    string firstName;
+    string lastName;
+    string position;
+    double Salary;
+    in >> 
+}
 
 template <class T>
 class IntetfaceToAdt {
