@@ -12,19 +12,11 @@
 #include <map>
 #include <unordered_map>
 #include "Task1.h"
-#include <fstream>
 #define MAX_EMPLOYEES 100000
 
 using namespace std;
 using namespace std::chrono;
 
-Employee* readNewObj() {
-    string firstName;
-    string lastName;
-    string position;
-    double Salary;
-    in >> 
-}
 
 template <class T>
 class IntetfaceToAdt {
@@ -102,47 +94,126 @@ public:
         }
         return elements[(frontIndex + index) % MAX_EMPLOYEES];
     }
+};
+template <class T>
+class AdtQueueWrapper : public IntetfaceToAdt<T>
+{
+public:
+    class Queue
+    {
+    public:
+        T* data;
+        Queue* next;
 
-    void paySalaries() {
-        cout << "Paying salaries..." << endl;
-        int current = frontIndex;
-        for (int i = 0; i < size; i++) {
-            cout << "Paying salary to: " << elements[current]->getFirstName()
-                << " " << elements[current]->getLastName() << endl;
-            current = (current + 1) % MAX_EMPLOYEES;
+        Queue(T* data) {
+            this->data = data;
+            next = nullptr;
         }
+    };
+
+    Queue* head;
+
+    AdtQueueWrapper() {
+        head = nullptr;
     }
 
-    void findEmployee(const string& employeeLastName) {
-        bool isEmployeeInQueue = false;
-        int current = frontIndex;
-        for (int i = 0; i < size; i++) {
-            if (elements[current]->getLastName() == employeeLastName) {
-                cout << "This employee is in the queue, his position: " << (current - frontIndex + MAX_EMPLOYEES) % MAX_EMPLOYEES + 1 << endl;
-                isEmployeeInQueue = true;
-                break;
+    int deleteForIndex(int index) {
+        int cnt = 0;
+        Queue* realptr = head;
+        if (index == 0) { this->pop(); return 1; }
+        while (cnt < index - 1 || realptr == nullptr)
+        {
+            if (realptr == nullptr) {
+                return 0;
             }
-            current = (current + 1) % MAX_EMPLOYEES;
+            ++cnt;
+            realptr = realptr->next;
         }
-        if (!isEmployeeInQueue) {
-            cout << "This employee is not in the queue" << endl;
+        if (realptr->next == nullptr || index < 0) { return 0; }
+
+        Queue* getnextpetr = realptr->next, * twoxnextpr = realptr->next->next;
+        delete getnextpetr->data;
+        delete getnextpetr;
+        realptr->next = twoxnextpr;
+        return 1;
+    }
+
+
+
+    void clear() override
+    {
+        if (isEmpty()) { return; }
+        Queue* realPtr = head->next;
+        while (realPtr != nullptr) {
+            delete head->data;
+            delete head;
+            head = realPtr;
+            realPtr = realPtr->next;
         }
+        head = nullptr;
+    }
+
+    bool isEmpty() override {
+        return (head == nullptr);
+    }
+
+    void pop() override {
+        if (isEmpty()) { return; }
+        Queue* realptr = head->next;
+        delete head->data;
+        delete head;
+        head = realptr;
+    }
+
+    T* front() override {
+        return (*head).data;
+    }
+
+    void push(T* t) override {
+
+        if (isEmpty())
+        {
+            this->head = new Queue(t);
+            return;
+        }
+        Queue* realPtr = head;
+        while (realPtr->next != nullptr) {
+            realPtr = realPtr->next;
+        }
+        realPtr->next = new Queue(t);
+    }
+
+    void printAdt() override {
+        if (isEmpty())
+        {
+            cout << "NULL" << endl;
+            return;
+        }
+        cout << *(head->data);
+        cout << " -> ";
+        Queue* realPtr = head->next;
+        while (realPtr != nullptr) {
+            cout << *(realPtr->data);
+            cout << " -> ";
+            realPtr = realPtr->next;
+        }
+        cout << "NULL" << endl;
+    }
+
+    T* getForIndex(int index) {
+        int cnt = 0;
+        Queue* realptr = head;
+        while (cnt != index || realptr == nullptr)
+        {
+            if (realptr == nullptr) {
+                return nullptr;
+            }
+            ++cnt;
+            realptr = realptr->next;
+        }
+        return realptr->data;
     }
 };
-
-void printVector(vector<int> vec) {
-    for (int num : vec) {
-        cout << num << " ";
-    }
-    cout << endl;   
-}
-
-void printArray(int arr[], int size) {
-	for (int i = 0; i < size; i++) {
-		cout << arr[i] << " ";
-	}
-	cout << endl;
-}
 
 void measureQueuePush(Queue<int>& q, int count) {
     auto start = high_resolution_clock::now();
@@ -172,7 +243,8 @@ void measureQueuePop(Queue<int>& q, int count) {
     cout << "Time taken for pop(" << count << " elements): " << fixed << setprecision(9) << elapsedTime.count() << " seconds" << endl;
 }
 void main() {
-   /* Queue<Employee> myQueue;
+    setlocale(LC_ALL, "RU");
+    AdtQueueWrapper<Employee> myQueue;
     myQueue.push(new Employee("John", "Doe", "Manager", 5000));
     myQueue.push(new Employee("Jane", "Smith", "Developer", 4000));
     myQueue.printAdt();
@@ -181,13 +253,17 @@ void main() {
     myQueue.push(new Employee("Alice", "Johnson", "Designer", 4500));
     myQueue.printAdt();
 
-    Queue<Medicament> teammateQueue;
-    teammateQueue.push(new Medicament(100, "ABD"));
+    /*Queue<Medicament> teammateQueue;
+    teammateQueue.push(new Medicament(100, "Àנבטהמכ"));
+    teammateQueue.push(new Medicament(100, "Òאלûאû"));
+    teammateQueue.printAdt();
+    teammateQueue.pop();
     teammateQueue.printAdt();*/
 
-    vector<int> vec;
+
+   /* vector<int> vec;
     measureVectorPush(vec, 10000);
-    measureVectorPop(vec, 10000);   
+    measureVectorPop(vec, 10000);   */
     
    /* stack<int> stk;
     measureStackPush(stk, 10000);
