@@ -4,18 +4,12 @@
 #include <random>
 #include <iostream>
 #include <ctime>
-#include <list>
+
 using namespace std;
 using namespace SortingMethods;
 void generateRandomArray(int* arr, int size, int min, int max) {
 	for (int i = 0; i < size; i++) {
 		arr[i] = min + rand() % max;
-	}
-}
-
-void generateRandomList(list<int>& lst, int size, int min, int max) {
-	for (int i = 0; i < size; i++) {
-		lst.push_back(min + rand() % max);
 	}
 }
 
@@ -25,51 +19,44 @@ void printArray(int arr[], int size) {
 	}
 	cout << endl;
 }
-void printList(const list<int>& lst) {
-	for (int num : lst) {
-		cout << num << " ";
-	}
-	cout << endl;
-}
 void main() {
-	//Queue myQueue;
-	//myQueue.insert(Employee("John", "Doe", "Manager", 5000));
-	//myQueue.insert(Employee("Jane", "Smith", "Developer", 4000));
-	//
+	Queue myQueue;
+	myQueue.insert(Employee("John", "Doe", "Manager", 5000));
+	myQueue.insert(Employee("Jane", "Smith", "Developer", 4000));
+	
 
-	////myQueue.printAllEmployees();
-	////myQueue.remove();
 	//myQueue.printAllEmployees();
-	//myQueue.insert(Employee("Alice", "Johnson", "Designer", 4500));
-	//myQueue.findEmployee("Smith");
-	//myQueue.printAllEmployees();
-	//myQueue.paySalaries();
-	int size;
-	cout << "Set array/list size: " << endl;
-	cin >> size;
+	//myQueue.remove();
+	myQueue.printAllEmployees();
+	myQueue.insert(Employee("Alice", "Johnson", "Designer", 4500));
+	myQueue.findEmployee("Smith");
+	myQueue.printAllEmployees();
+	myQueue.paySalaries();
+	//int size;
+	//cout << "Set array size: " << endl;
+	//cin >> size;
 
-	int* arr = new int[size];
-	list<int> lst;
+	//int* arr = new int[size];
 
 	//generateRandomArray(arr, size, 1, 50);
-	generateRandomList(lst, size, 1, 50);
+	//
 
-	cout << "Initial array/list: " << endl;
+	//cout << "Initial array: " << endl;
 	//printArray(arr, size);
-	printList(lst);
+	//
 
-	clock_t start = clock();
-	shakerSort(lst);
+	//clock_t start = clock();
+
 	//mergeSort(arr, size);
-	//bubbleSort(arr, size);
-	//bubbleSort(lst);
-	//mergeSort(lst);
-	clock_t finish = clock();
+	////bubbleSort(arr, size);
+	////shakerSort(arr, size);
+	//
+	//clock_t finish = clock();
 
-	double elapsedTime = double(finish - start) / CLOCKS_PER_SEC;
+	//double elapsedTime = double(finish - start) / CLOCKS_PER_SEC;
 
-	cout << "\nSorted array/list: " << endl;
+	//cout << "\nSorted array: " << endl;
 	//printArray(arr, size);
-	printList(lst);
-	cout << "\nTime taken for sort: " << elapsedTime << endl;
+
+	//cout << "\nTime taken for sort: " << elapsedTime << endl;
 }

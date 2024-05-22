@@ -33,30 +33,6 @@ namespace SortingMethods {
 			++start;
 		}
 	}
-	void shakerSort(list<int>& lst) {
-		bool swapped = true;
-		auto start = lst.begin();
-		auto end = lst.end();
-		while (swapped) {
-			swapped = false;
-			for (auto it = start; next(it) != end; ++it) {
-				if (*it > *next(it)) {
-					swap(*it, *next(it));
-					swapped = true;
-				}
-			}
-			if (!swapped) break;
-			--end;
-			swapped = false;
-			for (auto it = prev(end); it != start; --it) {
-				if (*it > *next(it)) {
-					swap(*it, *next(it));
-					swapped = true;
-				}
-			}
-			++start;
-		}
-	}
 	void bubbleSort(int array[], int n) {
 		for (int i = 0; i < n - 1; i++) {
 			bool swapped = false;
@@ -64,20 +40,6 @@ namespace SortingMethods {
 				if (array[j] > array[j + 1]) {
 					swapped = true;
 					swap(array[j], array[j + 1]);
-				}
-			}
-			if (!swapped)
-				break;
-		}
-	}
-	void bubbleSort(list<int>& lst) {
-		for (auto iter1 = lst.begin(); iter1 != prev(lst.end()); ++iter1) {
-			bool swapped = false;
-			for (auto iter2 = lst.begin(); iter2 != prev(lst.end()); ++iter2) {
-				auto nextIter = next(iter2);
-				if (*iter2 > *nextIter) {
-					swap(*iter2, *nextIter);
-					swapped = true;
 				}
 			}
 			if (!swapped)
@@ -134,53 +96,6 @@ namespace SortingMethods {
 		merge(left, right, array, mid, size - mid);
 
 	}
-	void merge(list<int>& lst1, std::list<int>& lst2, std::list<int>& targetLst) {
-		auto iter1 = lst1.begin();
-		auto iter2 = lst2.begin();
-
-		while (iter1 != lst1.end() && iter2 != lst2.end()) {
-			if (*iter1 <= *iter2) {
-				targetLst.push_back(*iter1);
-				iter1++;
-			}
-			else {
-				targetLst.push_back(*iter2);
-				iter2++;
-			}
-		}
-		while (iter1 != lst1.end()) {
-			targetLst.push_back(*iter1);
-			iter1++;
-		}
-		while (iter2 != lst2.end()) {
-			targetLst.push_back(*iter2);
-			iter2++;
-		}
-		
-	}
-
-	void mergeSort(list<int>& lst) {
-		if (lst.size() < 2) {
-			return;
-		}
-
-		int mid = lst.size() / 2;
-		list<int> left, right;
-
-		auto iter = lst.begin();
-		for (int i = 0; i < mid; i++) {
-			left.push_back(*iter);
-			iter++;
-		}
-		while (iter != lst.end()) {
-			right.push_back(*iter);
-			iter++;
-		}
-		mergeSort(left);
-		mergeSort(right);
-		lst.clear();
-		merge(left, right, lst);
-		
-	}
+	
 
 }
